@@ -4,7 +4,11 @@
 // inorder to make file: boxit.js executable with ./ you'll first need
 // to run chmod +x boxit.js
 // https://jrgraphix.net/r/Unicode/2500-257F
-// To do
+
+/**
+ * @param  {int} n
+ * drawLine: draws line of length n
+ */
 function drawLine(n){
     let line = ''
     for(let i = 0; i<n; i++){
@@ -13,22 +17,47 @@ function drawLine(n){
     return line
 }
 // To do
+/**
+ * @param  {int} n
+ * @param  {string} beginning='\u250C'
+ * @param  {string} ending='\u2510'
+ * drawTopBorder: draws top border of length n
+ */
 function drawTopBorder(n,beginning='\u250C',ending='\u2510'){
     return `${beginning}${drawLine(n)}${ending}`
 }
-// To do
-function drawMiddleBorder(n,beginning,ending='|'){
+/**
+ * @param  {int} n
+ * @param  {string} beginning = '|'
+ * @param  {string} ending='|'
+ * drawMiddleBorder: draws middle border of length n
+ */
+function drawMiddleBorder(n,beginning='|',ending='|'){
     return `${beginning}${drawLine(n)}${ending}`
 }
-// To do
+/**
+ * @param  {int} n
+ * @param  {string} beginning='\u2514'
+ * @param  {string} ending='\u2518'
+ * drawBottomBorder: draws bottom border of length n
+ */
 function drawBottomBorder(n,beginning='\u2514',ending='\u2518'){
     return `${beginning}${drawLine(n)}${ending}`
 }
-// To do
+/**
+ * @param  {string} s
+ * @param  {string} beginning='|'
+ * @param  {string} ending='|'
+ * drawBarsAround: draws bars around string s
+ */
 function drawBarsAround(s,beginning='|',ending='|'){
     return `${beginning}${s}${ending}`
 }
-// To do
+/**
+ * @param  {} fileContents
+ * boxIt: by calling combination of other functions,
+ * it draws a box with list of strings in the input. 
+ */
 function boxIt(fileContents){
     let firstSet=[],secondSet=[]
     for(let content of fileContents){
@@ -50,7 +79,12 @@ function boxIt(fileContents){
     output+='\n'+drawBottomBorder(firstSet_maxLength,beginning='\u2514',ending='\u2534')+drawBottomBorder(secondSet_maxLength,beginning='')
     return output
 }
-
+/**
+ * @param  {int} maxLength
+ * @param  {string} string
+ * getRemainingSpaces: add spaces to input string so 
+ * length matches with max length of longest string in list of inputs
+ */
 function getRemainingSpaces(maxLength,string){
     let remainingSpaces=''
     for(let i=0; i<(maxLength - string.length); i++){
@@ -58,7 +92,11 @@ function getRemainingSpaces(maxLength,string){
     }
     return remainingSpaces
 }
-
+/**
+ * @param  {[string]} set
+ * getMaxLength: returns length of largest element
+ * in list
+ */
 function getMaxLength(set){
     let maxLength = 0
     for(let element of set){
@@ -68,14 +106,14 @@ function getMaxLength(set){
     }
     return maxLength
 }
- 
-const fileName = process.argv[2]
+
+//  grab file name
 // https://www.geeksforgeeks.org/javascript-program-to-read-text-file/
+const fileName = process.argv[2]
+// fetch and read the contents of file
 const fs = require('fs')
 fs.readFile(fileName,(err, data) =>{
     if(err) throw err;
     let fileContents = data.toString().split('\n')
     console.log(boxIt(fileContents))
-    // console.log(fileContents)
-    // boxIt(fileContents)
 })
