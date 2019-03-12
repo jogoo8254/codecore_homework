@@ -1,10 +1,32 @@
 #! /usr/bin/env node
+
+/** 
+ * Author: Kevin Njunge
+ * Assignment: Box-It-Script
+ * Due Date: March 15, 2019
+ * **/
+
+
 // #! /usr/bin/env node -> runs env command which finds where 
 // node.js is installed and runs it.
 // inorder to make file: boxit.js executable with ./ you'll first need
 // to run chmod +x boxit.js
 // https://jrgraphix.net/r/Unicode/2500-257F
 
+// schematic of box
+const box ={
+    topLeftCorner: '\u250C',
+    topRightCorner: '\u2510',
+    bottomLeftCorner: '\u2514',
+    bottomRightCorner: '\u2518',
+    middleTopCorner: '\u252c',
+    middleLine:'\u253c',
+    middleBottomCorner:'\u2534',
+    horizantalLine: '\u2500',
+    verticalLine:'|',
+    space: ' ',
+    newLine:'\n'
+}
 /**
  * @param  {int} n
  * drawLine: draws line of length n
@@ -12,7 +34,7 @@
 function drawLine(n){
     let line = ''
     for(let i = 0; i<n; i++){
-        line += '\u2500'
+        line += box.horizantalLine
     }
     return line
 }
@@ -23,7 +45,7 @@ function drawLine(n){
  * @param  {string} ending='\u2510'
  * drawTopBorder: draws top border of length n
  */
-function drawTopBorder(n,beginning='\u250C',ending='\u2510'){
+function drawTopBorder(n,beginning=box.topLeftCorner,ending=box.topRightCorner){
     return `${beginning}${drawLine(n)}${ending}`
 }
 /**
@@ -32,7 +54,7 @@ function drawTopBorder(n,beginning='\u250C',ending='\u2510'){
  * @param  {string} ending='|'
  * drawMiddleBorder: draws middle border of length n
  */
-function drawMiddleBorder(n,beginning='|',ending='|'){
+function drawMiddleBorder(n,beginning=box.verticalLine,ending=box.verticalLine){
     return `${beginning}${drawLine(n)}${ending}`
 }
 /**
@@ -41,7 +63,7 @@ function drawMiddleBorder(n,beginning='|',ending='|'){
  * @param  {string} ending='\u2518'
  * drawBottomBorder: draws bottom border of length n
  */
-function drawBottomBorder(n,beginning='\u2514',ending='\u2518'){
+function drawBottomBorder(n,beginning=box.bottomLeftCorner,ending=box.bottomRightCorner){
     return `${beginning}${drawLine(n)}${ending}`
 }
 /**
@@ -50,7 +72,7 @@ function drawBottomBorder(n,beginning='\u2514',ending='\u2518'){
  * @param  {string} ending='|'
  * drawBarsAround: draws bars around string s
  */
-function drawBarsAround(s,beginning='|',ending='|'){
+function drawBarsAround(s,beginning=box.verticalLine,ending=box.verticalLine){
     return `${beginning}${s}${ending}`
 }
 
@@ -69,18 +91,18 @@ function boxIt(fileContents){
     }
     let firstSet_maxLength = getMaxLength(firstSet)
     let secondSet_maxLength = getMaxLength(secondSet)
-    let output=drawTopBorder(n=firstSet_maxLength,beginning='\u250C',ending='\u252c')+drawTopBorder(secondSet_maxLength,beginning='')
+    let output=drawTopBorder(n=firstSet_maxLength,beginning=box.topLeftCorner,ending=box.middleTopCorner)+drawTopBorder(secondSet_maxLength,beginning='')
     if(firstSet.length || secondSet.length){
         for(let i=0; i<fileContents.length; i++){
             let firstSetSpaces = getRemainingSpaces(firstSet_maxLength,firstSet[i])
             let secondSetSpaces = getRemainingSpaces(secondSet_maxLength,secondSet[i])
-            output+='\n'+drawBarsAround(firstSet[i]+firstSetSpaces)+drawBarsAround(n=(secondSet[i]+secondSetSpaces),beginning='')
+            output+=box.newLine+drawBarsAround(firstSet[i]+firstSetSpaces)+drawBarsAround(n=(secondSet[i]+secondSetSpaces),beginning='')
             if(i !== fileContents.length-1){
-               output+='\n'+drawMiddleBorder(firstSet_maxLength,beginning='|',ending='\u253c')+drawMiddleBorder(secondSet_maxLength,beginning='')
+               output+=box.newLine+drawMiddleBorder(firstSet_maxLength,beginning=box.verticalLine,ending=box.middleLine)+drawMiddleBorder(secondSet_maxLength,beginning='')
             }
         }    
     }
-    output+='\n'+drawBottomBorder(firstSet_maxLength,beginning='\u2514',ending='\u2534')+drawBottomBorder(secondSet_maxLength,beginning='')
+    output+=box.newLine+drawBottomBorder(firstSet_maxLength,beginning=box.bottomLeftCorner,ending=box.middleBottomCorner)+drawBottomBorder(secondSet_maxLength,beginning='')
     return output
 }
 
