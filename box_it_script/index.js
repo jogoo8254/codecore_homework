@@ -13,6 +13,19 @@
 // to run chmod +x boxit.js
 // https://jrgraphix.net/r/Unicode/2500-257F
 
+
+// grab file name
+// https://www.geeksforgeeks.org/javascript-program-to-read-text-file/
+const fileName = process.argv[2]
+// fetch and read the contents of file
+const fs = require('fs')
+fs.readFile(fileName,(err, data) =>{
+    if(err);
+    let fileContents = data.toString().split('\n')
+    console.log(boxIt(fileContents))
+})
+
+
 // schematic of box
 const box ={
     topLeftCorner: '\u250C',
@@ -135,14 +148,3 @@ function getMaxLength(set){
     }
     return maxLength
 }
-
-// grab file name
-// https://www.geeksforgeeks.org/javascript-program-to-read-text-file/
-const fileName = process.argv[2]
-// fetch and read the contents of file
-const fs = require('fs')
-fs.readFile(fileName,(err, data) =>{
-    if(err);
-    let fileContents = data.toString().split('\n')
-    console.log(boxIt(fileContents))
-})
