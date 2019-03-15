@@ -115,55 +115,56 @@ function getMaxLength(set){
     }
     return maxLength
 }
-
+function isUndefined(content){
+    return content === undefined;
+}
 /**
  * @param  {[string]} contents
  * @param  {boolean} readFromFileFlag = true
  * boxIt: by calling combination of other functions,
  * it draws a box with list of strings in the input. 
  */
-function boxIt(contents,readFromFileFlag=true){
+function boxIt(contents){
     let output = ''
-    if(readFromFileFlag){ // read from file
-        let firstSet=[],secondSet=[]
-        for(let content of contents){
-            if(content){
-                firstSet.push(content.split(',')[0])
-                secondSet.push(content.split(',')[1])
-            }
+    let firstSet=[],secondSet=[]
+
+    for(let content of contents){
+        if(content){
+            firstSet.push(content.split(',')[0])
+            secondSet.push(content.split(',')[1])
         }
-        let firstSet_maxLength = getMaxLength(firstSet)
+    }
+    let firstSet_maxLength = getMaxLength(firstSet)
+    // if second set exists, include building second column of box
+    if(!secondSet.every(isUndefined)){
         let secondSet_maxLength = getMaxLength(secondSet)
         output=drawTopBorder(n=firstSet_maxLength,beginning=box.topLeftCorner,ending=box.middleTopCorner)+drawTopBorder(secondSet_maxLength,beginning='')
-        if(firstSet.length || secondSet.length){
-            for(let i=0; i<contents.length; i++){
-                let firstSetSpaces = getRemainingSpaces(firstSet_maxLength,firstSet[i])
-                let secondSetSpaces = getRemainingSpaces(secondSet_maxLength,secondSet[i])
-                output+=box.newLine+drawBarsAround(firstSet[i]+firstSetSpaces)+drawBarsAround(n=(secondSet[i]+secondSetSpaces),beginning='')
-                if(i !== contents.length-1){
-                   output+=box.newLine+drawMiddleBorder(firstSet_maxLength,beginning=box.verticalLine,ending=box.middleLine)+drawMiddleBorder(secondSet_maxLength,beginning='')
-                }
-            }    
-        }
-        output+=box.newLine+drawBottomBorder(firstSet_maxLength,beginning=box.bottomLeftCorner,ending=box.middleBottomCorner)+drawBottomBorder(secondSet_maxLength,beginning='')
-    }else{ // read from terminal
-        let maxLength = getMaxLength(contents)
-        output=drawTopBorder(maxLength)
         for(let i=0; i<contents.length; i++){
-            let remainingSpaces=getRemainingSpaces(maxLength,contents[i])
-            output+=box.newLine+drawBarsAround(contents[i]+remainingSpaces)
+            let firstSetSpaces = getRemainingSpaces(firstSet_maxLength,firstSet[i])
+            let secondSetSpaces = getRemainingSpaces(secondSet_maxLength,secondSet[i])
+            output+=box.newLine+drawBarsAround(firstSet[i]+firstSetSpaces)+drawBarsAround(n=(secondSet[i]+secondSetSpaces),beginning='')
             if(i !== contents.length-1){
-                output+=box.newLine+drawMiddleBorder(maxLength)
+               output+=box.newLine+drawMiddleBorder(firstSet_maxLength,beginning=box.verticalLine,ending=box.middleLine)+drawMiddleBorder(secondSet_maxLength,beginning='')
             }
         }
-        output+=box.newLine+drawBottomBorder(maxLength)
+        output+=box.newLine+drawBottomBorder(firstSet_maxLength,beginning=box.bottomLeftCorner,ending=box.middleBottomCorner)+drawBottomBorder(secondSet_maxLength,beginning='')
+    }else{ // else only build first column of box
+        output=drawTopBorder(firstSet_maxLength)
+        for(let i=0; i<firstSet.length; i++){
+            let remainingSpaces=getRemainingSpaces(firstSet_maxLength,contents[i])
+            output+=box.newLine+drawBarsAround(contents[i]+remainingSpaces)
+            if(i !== contents.length-1){
+                output+=box.newLine+drawMiddleBorder(firstSet_maxLength)
+            }
+        }
+        output+=box.newLine+drawBottomBorder(firstSet_maxLength)
     }
     return output
 }
 
 // if only one argument is provided in terminal with .csv or .txt extension,
 //  then grab contents from file with that name.
-// ie.) ./index.js character.csv will read contents from character.csv file. 
+// ie.) ./index.js onecolumn.csv will read contents from onecolumn.csv file. 
 if(args.length ==1 && (args[0].includes("\.csv") || args[0].includes("\.txt"))){
     const fileName = args[0]
     // fetch and read the contents of file
@@ -174,6 +175,5 @@ if(args.length ==1 && (args[0].includes("\.csv") || args[0].includes("\.txt"))){
         console.log(boxIt(fileContents))
     })
 }else{// else read contents from terminal
-    // second parameter passed to boxIt is set to false to indicate its reading from terminal
-    console.log(boxIt(args,false))
+    console.log(boxIt(args))
 }
