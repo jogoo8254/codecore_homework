@@ -9,7 +9,26 @@
  * To execute, either: 
  * 1.) run ./index.js <filename> with either .csv or .txt extension to read from file. Or
  * 2.) run ./index.js <string 1> <string 2> ... to read from terminal.
+ * 
+ * ie.) ./index.js empty.csv prints:
+ * ┌┐
+ * └┘
+ * ./index.js 'abc,defg' hijkl,sfsaf abc def
+ * ┌─────┬─────┐
+ * |abc  |defg |
+ * |─────┼─────|
+ * |hijkl|sfsaf|
+ * |─────┼─────|
+ * |abc  |     |
+ * |─────┼─────|
+ * |def  |     |
+ * └─────┴─────┘
+ * 
+ * 
+ * 
  * **/
+
+
 
 
 // #! /usr/bin/env node -> runs env command which finds where 
@@ -115,9 +134,25 @@ function getMaxLength(set){
     }
     return maxLength
 }
+
+/**
+ * @param  {[string]} content
+ * isUndefined: returns true if string is undefined.
+ * Else it returns false. 
+ */
 function isUndefined(content){
     return content === undefined;
 }
+
+/**
+ * @param  {[string]} content
+ * convertIfEmpty: returns string if not undefined.
+ * Else it returns '' 
+ */
+function convertIfEmpty(content){
+    return (content ? content : '');
+}
+
 /**
  * @param  {[string]} contents
  * @param  {boolean} readFromFileFlag = true
@@ -141,8 +176,9 @@ function boxIt(contents){
         output=drawTopBorder(n=firstSet_maxLength,beginning=box.topLeftCorner,ending=box.middleTopCorner)+drawTopBorder(secondSet_maxLength,beginning='')
         for(let i=0; i<contents.length; i++){
             let firstSetSpaces = getRemainingSpaces(firstSet_maxLength,firstSet[i])
+            // let secondSetSpaces = secondSet[i] ? getRemainingSpaces(secondSet_maxLength,secondSet[i]) : getRemainingSpaces(secondSet_maxLength,'')
             let secondSetSpaces = getRemainingSpaces(secondSet_maxLength,secondSet[i])
-            output+=box.newLine+drawBarsAround(firstSet[i]+firstSetSpaces)+drawBarsAround(n=(secondSet[i]+secondSetSpaces),beginning='')
+            output+=box.newLine+drawBarsAround(convertIfEmpty(firstSet[i])+firstSetSpaces)+drawBarsAround(n=(convertIfEmpty(secondSet[i])+secondSetSpaces),beginning='')
             if(i !== contents.length-1){
                output+=box.newLine+drawMiddleBorder(firstSet_maxLength,beginning=box.verticalLine,ending=box.middleLine)+drawMiddleBorder(secondSet_maxLength,beginning='')
             }
@@ -152,7 +188,7 @@ function boxIt(contents){
         output=drawTopBorder(firstSet_maxLength)
         for(let i=0; i<firstSet.length; i++){
             let remainingSpaces=getRemainingSpaces(firstSet_maxLength,contents[i])
-            output+=box.newLine+drawBarsAround(contents[i]+remainingSpaces)
+            output+=box.newLine+drawBarsAround(convertIfEmpty(contents[i])+remainingSpaces)
             if(i !== contents.length-1){
                 output+=box.newLine+drawMiddleBorder(firstSet_maxLength)
             }

@@ -10,7 +10,7 @@
  2. run chmod +x index.js to make it executable with ./
  3. to execute the file, either 
     1. run ./index.js <filename> with either .csv or .txt extension to read from file.
-        ie.) ./index.js character.csv
+        ie.) ./index.js twocolumns.csv
 
     Or
     
