@@ -83,8 +83,6 @@
 // https://jrgraphix.net/r/Unicode/2500-257F
 
 
-// grab file name
-// https://www.geeksforgeeks.org/javascript-program-to-read-text-file/
 const args = process.argv.slice(2)
 
 // schematic of box
@@ -242,6 +240,8 @@ function boxIt(contents){
     return output
 }
 
+// grab file name
+// https://www.geeksforgeeks.org/javascript-program-to-read-text-file/
 // if only one argument is provided in terminal with .csv or .txt extension,
 //  then grab contents from file with that name.
 // ie.) ./index.js onecolumn.csv will read contents from onecolumn.csv file. 
