@@ -6,13 +6,25 @@
  * Due Date: March 15, 2019
  * 
  * 
- * To execute, either: 
- * 1.) run ./index.js <filename> with either .csv or .txt extension to read from file. Or
- * 2.) run ./index.js <string 1> <string 2> ... to read from terminal.
  * 
- * ie.) ./index.js empty.csv prints:
+ * To execute:
+ * 1.) cd box_it_script/
+ * 2.) run chmod +x index.js to make it executable with ./
+ * 3.) to execute the file, either 
+ *     a.) run ./index.js <filename> with either .csv or .txt extension to read from file. Or
+ *   OR
+ *     b.) run ./index.js <string 1> <string 2> ... to read from terminal.
+ * 
+ * ie.) 
+ * 
+ * ./index.js
  * ┌┐
  * └┘
+ * 
+ * ./index.js empty.csv
+ * ┌┐
+ * └┘
+ * 
  * ./index.js 'abc,defg' hijkl,sfsaf abc def
  * ┌─────┬─────┐
  * |abc  |defg |
@@ -24,12 +36,45 @@
  * |def  |     |
  * └─────┴─────┘
  * 
- * 
- * 
- * **/
-
-
-
+ * ./index.js 'Jon Snow' 'Daenerys Targaryen' 'Arya Stark'
+ * ┌──────────────────┐
+*  |Jon Snow          |
+*  |──────────────────|
+*  |Daenerys Targaryen|
+*  |──────────────────|
+*  |Arya Stark        |
+*  └──────────────────┘
+* 
+* 
+* ./index.js twocolumns.csv
+* 
+* 
+* ┌──────────────────┬─────────┐
+* |Names             |House    |
+* |──────────────────┼─────────|
+* |Jon Snow          |Stark    |
+* |──────────────────┼─────────|
+* |Daenerys Targaryen|Targaryen|
+* └──────────────────┴─────────┘
+*
+*
+*
+* ./index.js onecolumn.txt
+* ┌──────────────────┐
+* |Names             |
+* |──────────────────|
+* |House             |
+* |──────────────────|
+* |Jon Snow          |
+* |──────────────────|
+* |Stark             |
+* |──────────────────|
+* |Daenerys Targaryen|
+* |──────────────────|
+* |Targaryen         |
+* └──────────────────┘
+* 
+* **/
 
 // #! /usr/bin/env node -> runs env command which finds where 
 // node.js is installed and runs it.
@@ -176,7 +221,6 @@ function boxIt(contents){
         output=drawTopBorder(n=firstSet_maxLength,beginning=box.topLeftCorner,ending=box.middleTopCorner)+drawTopBorder(secondSet_maxLength,beginning='')
         for(let i=0; i<contents.length; i++){
             let firstSetSpaces = getRemainingSpaces(firstSet_maxLength,firstSet[i])
-            // let secondSetSpaces = secondSet[i] ? getRemainingSpaces(secondSet_maxLength,secondSet[i]) : getRemainingSpaces(secondSet_maxLength,'')
             let secondSetSpaces = getRemainingSpaces(secondSet_maxLength,secondSet[i])
             output+=box.newLine+drawBarsAround(convertIfEmpty(firstSet[i])+firstSetSpaces)+drawBarsAround(n=(convertIfEmpty(secondSet[i])+secondSetSpaces),beginning='')
             if(i !== contents.length-1){
