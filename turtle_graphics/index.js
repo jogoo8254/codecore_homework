@@ -2,6 +2,7 @@ const arguments = process.argv
 const x_coord = arguments[2]
 const y_coord = arguments[3]
 const header = '0 1 2 3 4'
+const gridMaterial = '┼─'
 const grid = '0┼─┼─┼─┼─┼\n1┼─┼─┼─┼─┼\n2┼─┼─┼─┼─┼\n3┼─┼─┼─┼─┼\n4┼─┼─┼─┼─┼'
 const start_point= '•' // – Starting Location
 const end_point = '*'  // – End Location
@@ -18,7 +19,9 @@ class Turtle{
         this.x = x;
         this.y = y;
     }
-
+    setStartPoint(){
+        
+    }
     forward(steps){
         let updated_trail = start_point
         for(let i=0; i< steps*2-1;i++){
@@ -28,8 +31,6 @@ class Turtle{
         this.x = this.x+steps
         return updated_trail;
     }
-    
-
 }
 
 
