@@ -31,3 +31,27 @@ class Turtle{
     
 
 }
+
+
+// console.log(initialGrid)
+// String.prototype.replaceAt=function(index,replacement){
+//     return this.substr(0,index) + replacement + this.substr(index + replacement.length);
+// }
+
+function drawGrid(x=0,y=0){
+    let updated_grid = grid.split('\n')
+    updated_row = ''
+    for(let i = 0; i < updated_grid.length; i++){
+        for(let j = 0; j< updated_grid[i].length;j++){
+            if(i ===x && j/2 ===y){
+                updated_row = ''
+                updated_grid.shift()
+                return updated_grid.join('\n');
+            }
+        }
+    }
+    return updated_grid.join('\n');
+}
+
+const turtle = new Turtle(0,0).forward(3)
+console.log(`${header}\n${drawGrid()}`)
