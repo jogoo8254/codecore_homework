@@ -19,4 +19,15 @@ class Turtle{
         this.y = y;
     }
 
+    forward(steps){
+        let updated_trail = start_point
+        for(let i=0; i< steps*2-1;i++){
+            updated_trail+=trail
+        }
+        updated_trail+= end_point
+        this.x = this.x+steps
+        return updated_trail;
+    }
+    
+
 }
