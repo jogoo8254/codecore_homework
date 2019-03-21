@@ -2,10 +2,10 @@ const arguments = process.argv
 const x_coord = arguments[2]
 const y_coord = arguments[3]
 const header = '0 1 2 3 4'
-const gridMaterial = '┼─'
+const grid_material = '┼─'
 const grid = '0┼─┼─┼─┼─┼\n1┼─┼─┼─┼─┼\n2┼─┼─┼─┼─┼\n3┼─┼─┼─┼─┼\n4┼─┼─┼─┼─┼'
-const start_point= '•' // – Starting Location
-const end_point = '*'  // – End Location
+const turtle_foot_print= '•' // – Starting Location
+// const end_point = '*'  // – End Location
 const trail = '-' // trail
 //  0 1 2 3 4
 // 0┼─┼─┼─┼─┼
@@ -18,11 +18,30 @@ class Turtle{
     constructor(x,y){
         this.x = x;
         this.y = y;
+        this.x_direction = true;
+        this.y_direction = false;
+        this.left = false;
+        this.right = false; // by default at starting point you move forward right
     }
+    // row to build start point
     setStartPoint(){
-        
+        initial_row=''
+        for(let i = 0; i < x; i++){
+            initial_row+=' '
+        }
+        initial_row+=turtle_foot_print
+        return initial_row
     }
+    // move forward # steps
     forward(steps){
+        if(this.left){
+        }else if(this.right){
+
+        }
+        // else{
+        //     // default is moving forward right
+        //     // this.x_steps = steps
+        // }
         let updated_trail = start_point
         for(let i=0; i< steps*2-1;i++){
             updated_trail+=trail
@@ -30,6 +49,22 @@ class Turtle{
         updated_trail+= end_point
         this.x = this.x+steps
         return updated_trail;
+    }
+    // method to turn turtle left
+    left(){
+        this.left = true;
+        this.right = false;  
+    }
+    // method to turn turtle right
+    right(){
+        this.right= true;
+        this.left = false;
+    }
+    allPoints(){
+
+    }
+    print(){
+        
     }
 }
 
