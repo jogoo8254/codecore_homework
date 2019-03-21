@@ -12,3 +12,11 @@ const trail = '-' // trail
 // 2┼─┼─┼─┼─┼
 // 3┼─┼─┼─┼─┼
 // 4┼─┼─┼─┼─┼
+
+class Turtle{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    }
+
+}
