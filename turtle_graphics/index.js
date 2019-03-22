@@ -43,6 +43,7 @@ class Turtle{
             update_y = x_direction ? this.y : i
             this.turtle_tracks.push([update_x,update_y])
         }
+        return this;
     }
     updateTurtleTrack(){
         const get_prior_coordinates = this.turtle_tracks.push()
@@ -71,9 +72,12 @@ class Turtle{
                 // }
             }
         }
+        return this;
     }
     // move forward # steps
     forward(steps){
+        console.log(this.x)
+        console.log(this.y)
         if(!this.y_direction){
             if(this.x_direction===1){
             // east:
@@ -113,6 +117,7 @@ class Turtle{
             this.min_y_coordinate = this.y
         }
         this.updateTurtleTrack()
+        return this;
     }
     // method to turn turtle left
     left(){
@@ -147,6 +152,7 @@ class Turtle{
                 this.y_direction = 0
             }
         }
+        return this;
     }
     // method to turn turtle right
     right(){
@@ -181,6 +187,7 @@ class Turtle{
                 this.y_direction = 0
             }
         }
+        return this;
     }
     allPoints(){
         return this.turtle_tracks
@@ -202,7 +209,7 @@ class Turtle{
             let tracksGrouped = groupBy(this.allPoints());
             let outputGrid=[]
             let row = ''
-            
+            console.log(this.allPoints())
             for(let i=this.min_x_coordinate;i<=this.max_x_coordinate;i++){
               for(let j=this.min_y_coordinate;j<=this.max_y_coordinate;j++){
                 if(!tracksGrouped[i]){
@@ -218,7 +225,8 @@ class Turtle{
               outputGrid.push(row)
                 row=''
             }
-            console.log(outputGrid.join('\n'))
+            console.log([outputGrid].join('\n'))
+            return this;
     }
 }
 
@@ -228,23 +236,23 @@ class Turtle{
 //     return this.substr(0,index) + replacement + this.substr(index + replacement.length);
 // }
 
-function drawGrid(x=0,y=0){
-    let updated_grid = grid.split('\n')
-    updated_row = ''
-    for(let i = 0; i < updated_grid.length; i++){
-        for(let j = 0; j< updated_grid[i].length;j++){
-            if(i ===x && j/2 ===y){
-                updated_row = ''
-                updated_grid.shift()
-                return updated_grid.join('\n');
-            }
-        }
-    }
-    return updated_grid.join('\n');
-}
+// function drawGrid(x=0,y=0){
+//     let updated_grid = grid.split('\n')
+//     updated_row = ''
+//     for(let i = 0; i < updated_grid.length; i++){
+//         for(let j = 0; j< updated_grid[i].length;j++){
+//             if(i ===x && j/2 ===y){
+//                 updated_row = ''
+//                 updated_grid.shift()
+//                 return updated_grid.join('\n');
+//             }
+//         }
+//     }
+//     return updated_grid.join('\n');
+// }
 
-const turtle = new Turtle(0,0).forward(3)
-console.log(`${header}\n${drawGrid()}`)
+// const turtle = new Turtle(0,0).forward(3)
+// console.log(`${header}\n${drawGrid()}`)
 
 
 // ---------------------
@@ -288,7 +296,6 @@ console.log(`${header}\n${drawGrid()}`)
 //         row=''
 //     }
 //     console.log(result.join('\n'))
-
 new Turtle(0, 4)
   .forward(3)
   .left()
