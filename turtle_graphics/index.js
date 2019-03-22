@@ -170,7 +170,7 @@ class Turtle{
         }
     }
     allPoints(){
-
+        return this.turtle_tracks
     }
     print(){
 
