@@ -22,7 +22,9 @@ class Turtle{
         this.y_direction = 0;
         // this.turn_left = false;
         // this.turn_right = false; // by default at starting point you move forward right
-        this.turtle_tracks = [[this.x,this.y]]
+        this.turtle_tracks = []
+        this.max_x_coordinate,this.min_x_coordinate, this.max_y_coordinate,this.min_y_coordinate =0
+
     }
     // row to build start point
     // setStartPoint(){
@@ -70,7 +72,6 @@ class Turtle{
             }
         }
     }
-    
     // move forward # steps
     forward(steps){
         if(!this.y_direction){
@@ -97,6 +98,19 @@ class Turtle{
             // y_direction = -1
                 this.y_direction -=steps
             }
+        }
+
+        if(this.x > this.max_x_coordinate){
+            this.max_x_coordinate = this.x
+        }
+        if(this.x < this.min_x_coordinate){
+            this.min_x_coordinate = this.x
+        }
+        if(this.y > this.max_y_coordinate){
+            this.max_y_coordinate = this.y
+        }
+        if(this.y < this.min_y_coordinate){
+            this.min_y_coordinate = this.y
         }
         updateTurtleTrack()
     }
@@ -133,7 +147,6 @@ class Turtle{
                 this.y_direction = 0
             }
         }
-
     }
     // method to turn turtle right
     right(){
@@ -173,7 +186,19 @@ class Turtle{
         return this.turtle_tracks
     }
     print(){
-
+        Array.prototype.groupBy = function(prop) {
+            return this.reduce(function(groups, item) {
+              const val = item[prop]
+              groups[val] = groups[val] || []
+              groups[val].push(item)
+              return groups
+            }, {})
+          }
+        let emptyRow=''
+        for(i=this.min_x_coordinate;i<=this.max_x_coordinate;i++){
+            for(j=this.min_y_coordinate;j<=this.max_j_coordinate;j++){
+            }
+        }
     }
     move(steps){
 
@@ -203,4 +228,3 @@ function drawGrid(x=0,y=0){
 
 const turtle = new Turtle(0,0).forward(3)
 console.log(`${header}\n${drawGrid()}`)
-
