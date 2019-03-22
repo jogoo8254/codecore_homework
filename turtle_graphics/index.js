@@ -20,8 +20,8 @@ class Turtle{
         this.y = y;
         this.x_direction = 1; // move east by default
         this.y_direction = 0;
-        this.turn_left = false;
-        this.turn_right = false; // by default at starting point you move forward right
+        // this.turn_left = false;
+        // this.turn_right = false; // by default at starting point you move forward right
         this.turtle_tracks = [[this.x,this.y]]
     }
     // row to build start point
@@ -102,38 +102,43 @@ class Turtle{
     }
     // method to turn turtle left
     left(){
-        this.left_right = true;
-        this.turn_right= false;
+        // this.left_right = true;
+        // this.turn_right= false;
         if(!this.y_direction){
             if(this.x_direction===1){
             // east:
-            // x_direction=1, // moving in positive direction. -1 moves in negative direction
-            // y_direction=0  // -1 is default, indicating moving in x direction. else if 1, then switch to y direction.
-                this.x +=steps
+            // this.x_direction=1, // moving in positive direction. -1 moves in negative direction
+            // this.y_direction=0  // -1 is default, indicating moving in x direction. else if 1, then switch to y direction.
+                this.x_direction = 0
+                this.y_direction= 1
             }else if(this.x_direction===-1){
             // west:
-            // x_direction=-1,
-            // y_direction =0
-                this.x -= steps
+            // this.x_direction=-1,
+            // this.y_direction =0
+                this.x_direction = 0
+                this.y_direction = -1
             }
         }else if(!this.x_direction){
             if(this.y_direction===1){
             // north:
-            // x_direction=0,
-            // y_direction = 1
-                this.y +=steps
+            // this.x_direction=0,
+            // this.y_direction = 1
+                this.x_direction = -1
+                this.y_direction = 0
             }else if(this.y_direction===-1){
             // south:
-            // x_direction = 0
-            // y_direction = -1
-                this.y_direction -=steps
+            // this.x_direction = 0
+            // this.y_direction = -1
+                this.x_direction = 1
+                this.y_direction = 0
             }
         }
+
     }
     // method to turn turtle right
     right(){
-        this.turn_right= true;
-        this.turn_left = false;
+        // this.turn_right= true;
+        // this.turn_left = false;
         if(!this.y_direction){
             if(this.x_direction===1){
             // east:
