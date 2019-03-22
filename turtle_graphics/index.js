@@ -48,24 +48,24 @@ class Turtle{
         const get_prior_coordinates = this.turtle_tracks.push()
         if(get_prior_coordinates[0]!==this.x){
             if(get_prior_coordinates[0]<this.x){
-                generateTurtleTracks(true,(get_prior_coordinates[0]+1),(this.x+1))
+                this.generateTurtleTracks(true,(get_prior_coordinates[0]+1),(this.x+1))
                 // for(let i =;i< ; i++){
                 //     this.turtle_tracks.push([i,this.y])   
                 // }
             }else{
-                generateTurtleTracks(true,this.x,get_prior_coordinates[0])
+                this.generateTurtleTracks(true,this.x,get_prior_coordinates[0])
                 // for(let i =this.x; i <get_prior_coordinates[0]; i++){
                 //     this.turtle_tracks.push([i,this.y])   
                 // }
             }
         }else if(get_prior_coordinates[1]!==this.y){
             if(get_prior_coordinates[1]<this.y){
-                generateTurtleTracks(false,(get_prior_coordinates[1] +1),(this.y+1))
+                this.generateTurtleTracks(false,(get_prior_coordinates[1] +1),(this.y+1))
                 // for(let i = get_prior_coordinates[1] +1; i<=this.y; i++){
                 //     this.turtle_tracks.push([this.x,i])   
                 // }
             }else{
-                generateTurtleTracks(false,this.y,get_prior_coordinates[i])
+                this.generateTurtleTracks(false,this.y,get_prior_coordinates[i])
                 // for(let i =this.y; i <get_prior_coordinates[1]; i++){
                 //     this.turtle_tracks.push([this.x,i])   
                 // }
@@ -112,7 +112,7 @@ class Turtle{
         if(this.y < this.min_y_coordinate){
             this.min_y_coordinate = this.y
         }
-        updateTurtleTrack()
+        this.updateTurtleTrack()
     }
     // method to turn turtle left
     left(){
@@ -199,7 +199,7 @@ class Turtle{
                 }, {});
             }
             
-            let tracksGrouped = groupBy(allPoints());
+            let tracksGrouped = groupBy(this.allPoints());
             let outputGrid=[]
             let row = ''
             
@@ -288,3 +288,19 @@ console.log(`${header}\n${drawGrid()}`)
 //         row=''
 //     }
 //     console.log(result.join('\n'))
+
+new Turtle(0, 4)
+  .forward(3)
+  .left()
+  .forward(3)
+  .right()
+  .forward(5)
+  .right()
+  .forward(8)
+  .right()
+  .forward(5)
+  .right()
+  .forward(3)
+  .left()
+  .forward(3)
+  .print();
