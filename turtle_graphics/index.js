@@ -1,12 +1,12 @@
-const arguments = process.argv
-const x_coord = arguments[2]
-const y_coord = arguments[3]
-const header = '0 1 2 3 4'
-const grid_material = '┼─'
-const grid = '0┼─┼─┼─┼─┼\n1┼─┼─┼─┼─┼\n2┼─┼─┼─┼─┼\n3┼─┼─┼─┼─┼\n4┼─┼─┼─┼─┼'
-// const turtle_foot_print= '•' // – Starting Location
+// const arguments = process.argv
+// const x_coord = arguments[2]
+// const y_coord = arguments[3]
+// const header = '0 1 2 3 4'
+const empty_trail = '┼─'
+// const grid = '0┼─┼─┼─┼─┼\n1┼─┼─┼─┼─┼\n2┼─┼─┼─┼─┼\n3┼─┼─┼─┼─┼\n4┼─┼─┼─┼─┼'
+ const turtle_foot_print= '•' // – Starting Location
 // const end_point = '*'  // – End Location
-const trail = '-' // trail
+// const trail = '-' // trail
 //  0 1 2 3 4
 // 0┼─┼─┼─┼─┼
 // 1┼─┼─┼─┼─┼
@@ -124,13 +124,13 @@ class Turtle{
             // this.x_direction=1, // moving in positive direction. -1 moves in negative direction
             // this.y_direction=0  // -1 is default, indicating moving in x direction. else if 1, then switch to y direction.
                 this.x_direction = 0
-                this.y_direction= 1
+                this.y_direction= -1
             }else if(this.x_direction===-1){
             // west:
             // this.x_direction=-1,
             // this.y_direction =0
                 this.x_direction = 0
-                this.y_direction = -1
+                this.y_direction = 1
             }
         }else if(!this.x_direction){
             if(this.y_direction===1){
@@ -158,13 +158,13 @@ class Turtle{
             // this.x_direction=1, // moving in positive direction. -1 moves in negative direction
             // this.y_direction=0  // -1 is default, indicating moving in x direction. else if 1, then switch to y direction.
                 this.x_direction = 0
-                this.y_direction= -1
+                this.y_direction= 1
             }else if(this.x_direction===-1){
             // west:
             // this.x_direction=-1,
             // this.y_direction =0
                 this.x_direction = 0
-                this.y_direction = 1
+                this.y_direction = -1
             }
         }else if(!this.x_direction){
             if(this.y_direction===1){
@@ -186,22 +186,39 @@ class Turtle{
         return this.turtle_tracks
     }
     print(){
-        Array.prototype.groupBy = function(prop) {
-            return this.reduce(function(groups, item) {
-              const val = item[prop]
-              groups[val] = groups[val] || []
-              groups[val].push(item)
-              return groups
-            }, {})
-          }
-        let emptyRow=''
-        for(i=this.min_x_coordinate;i<=this.max_x_coordinate;i++){
-            for(j=this.min_y_coordinate;j<=this.max_j_coordinate;j++){
+            const groupBy = (objectArray) => {
+                return objectArray.reduce(function (total, obj) {
+                    let key = obj[0];
+                    if (!total[key]) {
+                        total[key] = [];
+                        total[key].push(obj[1]);
+                    }else if(!total[key].includes(obj[1])){
+                      total[key].push(obj[1])
+                    }
+                    return total;
+                }, {});
             }
-        }
-    }
-    move(steps){
-
+            
+            let tracksGrouped = groupBy(allPoints());
+            let outputGrid=[]
+            let row = ''
+            
+            for(let i=this.min_x_coordinate;i<=this.max_x_coordinate;i++){
+              for(let j=this.min_y_coordinate;j<=this.max_y_coordinate;j++){
+                if(!tracksGrouped[i]){
+                  row+='-'
+                }else{
+                  if(!tracksGrouped[i].includes(j)){
+                  row+=empty_trail
+                  }else{
+                  row+=turtle_foot_print
+                  }
+                }
+              }
+              outputGrid.push(row)
+                row=''
+            }
+            console.log(outputGrid.join('\n'))
     }
 }
 
@@ -228,3 +245,46 @@ function drawGrid(x=0,y=0){
 
 const turtle = new Turtle(0,0).forward(3)
 console.log(`${header}\n${drawGrid()}`)
+
+
+// ---------------------
+// const people = [
+//     [0,3],[0,4],[0,5],[1,5],[2,5],[2,4],[2,3]
+//     ];
+//     min_x=0
+//     min_y=0
+//     max_x=2
+//     max_y=5
+//     const groupBy = (objectArray) => {
+//         return objectArray.reduce(function (total, obj) {
+//             let key = obj[0];
+//             if (!total[key]) {
+//                 total[key] = [];
+//                 total[key].push(obj[1]);
+//             }else if(!total[key].includes(obj[1])){
+//               total[key].push(obj[1])
+//             }
+//             return total;
+//         }, {});
+//     }
+    
+//     let tracksGrouped = groupBy(people);
+//     let result=[]
+//     let row = ''
+    
+//     for(let i=min_x;i<=max_x;i++){
+//       for(let j=min_y;j<=max_y;j++){
+//         if(!tracksGrouped[i]){
+//           row+='-'
+//         }else{
+//           if(!tracksGrouped[i].includes(j)){
+//           row+='-'
+//           }else{
+//           row+='*'
+//           }
+//         }
+//       }
+//       result.push(row)
+//         row=''
+//     }
+//     console.log(result.join('\n'))
