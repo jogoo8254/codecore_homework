@@ -1,7 +1,3 @@
-// const arguments = process.argv
-// const x_coord = arguments[2]
-// const y_coord = arguments[3]
-// const header = '0 1 2 3 4'
 const empty_trail = '┼─'
 // const grid = '0┼─┼─┼─┼─┼\n1┼─┼─┼─┼─┼\n2┼─┼─┼─┼─┼\n3┼─┼─┼─┼─┼\n4┼─┼─┼─┼─┼'
  const turtle_foot_print= '•' // – Starting Location
@@ -35,6 +31,24 @@ class Turtle{
     //     initial_row+=turtle_foot_print
     //     return initial_row
     // }
+    updateXCoordinateIfNegative(){
+        if(this.min_x_coordinate <0){
+            const remainder = 0 - this.min_x_coordinate
+            this.turtle_tracks.forEach(function(element){
+                element[0] +=remainder
+            })
+        }
+        return this;
+    }
+    updateYCoordinateIfNegative(){
+        if(this.min_y_coordinate <0){
+            const remainder = 0 - this.min_y_coordinate
+            this.turtle_tracks.forEach(function(element){
+                element[1] +=remainder
+            })
+        }
+        return this;
+    }
     // update list of turtle tracks with latest coordinates
     generateTurtleTracks(x_direction,continued_point,latest_point){
         let update_x,update_y=0
@@ -117,7 +131,7 @@ class Turtle{
         if(this.y < this.min_y_coordinate){
             this.min_y_coordinate = this.y
         }
-        this.updateTurtleTrack()
+        this.updateTurtleTrack();
         console.log(`after updating: x: ${this.x}, y: ${this.y}, turtle_tracks: ${this.turtle_tracks.join('->')}`)
         return this;
     }
@@ -212,15 +226,16 @@ class Turtle{
                     return total;
                 }, {});
             }
-            
+            this.updateXCoordinateIfNegative
+            this.updateYCoordinateIfNegative
             const tracksGrouped = groupBy(this.allPoints());
             let outputGrid=[]
             let row = ''
             console.log(this.allPoints())
             console.log(tracksGrouped)
             console.log(`${this.min_x_coordinate}, ${this.min_y_coordinate} -> ${this.max_x_coordinate}, ${this.max_y_coordinate}`)
-            for(let i=this.min_x_coordinate;i<=this.max_x_coordinate;i++){
-              for(let j=this.min_y_coordinate;j<=this.max_y_coordinate;j++){
+            for(let j=this.min_y_coordinate;j<=this.max_y_coordinate+1;j++){
+              for(let i=this.min_x_coordinate;i<=this.max_x_coordinate+1;i++){
                 if(!tracksGrouped[i]){
                   row+='-'
                 }else{
@@ -238,73 +253,16 @@ class Turtle{
             return this;
     }
 }
+// new Turtle(0, 0)
+//   .forward(5)
+//   .right()
+//   .forward(5)
+//   .right()
+//   .forward(5)
+//   .right()
+//   .forward(5)
+//   .print()
 
-
-// console.log(initialGrid)
-// String.prototype.replaceAt=function(index,replacement){
-//     return this.substr(0,index) + replacement + this.substr(index + replacement.length);
-// }
-
-// function drawGrid(x=0,y=0){
-//     let updated_grid = grid.split('\n')
-//     updated_row = ''
-//     for(let i = 0; i < updated_grid.length; i++){
-//         for(let j = 0; j< updated_grid[i].length;j++){
-//             if(i ===x && j/2 ===y){
-//                 updated_row = ''
-//                 updated_grid.shift()
-//                 return updated_grid.join('\n');
-//             }
-//         }
-//     }
-//     return updated_grid.join('\n');
-// }
-
-// const turtle = new Turtle(0,0).forward(3)
-// console.log(`${header}\n${drawGrid()}`)
-
-
-// ---------------------
-// const people = [
-//     [0,3],[0,4],[0,5],[1,5],[2,5],[2,4],[2,3]
-//     ];
-//     min_x=0
-//     min_y=0
-//     max_x=2
-//     max_y=5
-//     const groupBy = (objectArray) => {
-//         return objectArray.reduce(function (total, obj) {
-//             let key = obj[0];
-//             if (!total[key]) {
-//                 total[key] = [];
-//                 total[key].push(obj[1]);
-//             }else if(!total[key].includes(obj[1])){
-//               total[key].push(obj[1])
-//             }
-//             return total;
-//         }, {});
-//     }
-    
-//     let tracksGrouped = groupBy(people);
-//     let result=[]
-//     let row = ''
-    
-//     for(let i=min_x;i<=max_x;i++){
-//       for(let j=min_y;j<=max_y;j++){
-//         if(!tracksGrouped[i]){
-//           row+='-'
-//         }else{
-//           if(!tracksGrouped[i].includes(j)){
-//           row+='-'
-//           }else{
-//           row+='*'
-//           }
-//         }
-//       }
-//       result.push(row)
-//         row=''
-//     }
-//     console.log(result.join('\n'))
 new Turtle(0, 4)
   .forward(3)
   .left()
@@ -320,3 +278,5 @@ new Turtle(0, 4)
   .left()
   .forward(3)
   .print();
+
+// new Turtle(0, 0).forward(3).left().forward(3).print();
