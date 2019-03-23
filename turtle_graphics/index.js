@@ -1,36 +1,25 @@
-const empty_trail = '┼─'
-// const grid = '0┼─┼─┼─┼─┼\n1┼─┼─┼─┼─┼\n2┼─┼─┼─┼─┼\n3┼─┼─┼─┼─┼\n4┼─┼─┼─┼─┼'
- const turtle_foot_print= '•' // – Starting Location
-// const end_point = '*'  // – End Location
-// const trail = '-' // trail
-//  0 1 2 3 4
-// 0┼─┼─┼─┼─┼
-// 1┼─┼─┼─┼─┼
-// 2┼─┼─┼─┼─┼
-// 3┼─┼─┼─┼─┼
-// 4┼─┼─┼─┼─┼
-
+/**
+ * Author: Kevin Njunge
+ * Assignment: Turtle Graphics
+ * Due Date: 3/22/2019
+ * 
+ * 
+ * 
+ * '-' => empt mark
+ * '@' => turtle foot mark
+ * 
+ */
 class Turtle{
     constructor(x,y){
         this.x = x;
         this.y = y;
         this.x_direction = 1; // move east by default
         this.y_direction = 0;
-        // this.turn_left = false;
-        // this.turn_right = false; // by default at starting point you move forward right
         this.turtle_tracks = [[x,y]]
         this.max_x_coordinate=0,this.min_x_coordinate=0, this.max_y_coordinate=0,this.min_y_coordinate =0
         this.get_prior_coordinates = [x,y]
     }
-    // row to build start point
-    // setStartPoint(){
-    //     let initial_row=''
-    //     for(let i = 0; i < x; i++){
-    //         initial_row+=' '
-    //     }
-    //     initial_row+=turtle_foot_print
-    //     return initial_row
-    // }
+
     updateXCoordinateIfNegative(){
         if(this.min_x_coordinate <0){
             const remainder = 0 - this.min_x_coordinate
@@ -64,38 +53,24 @@ class Turtle{
         return this;
     }
     updateTurtleTrack(){
-        // console.log(`get_prior_coordinates ${get_prior_coordinates}`)
         if(this.get_prior_coordinates[0]!==this.x){
             if(this.get_prior_coordinates[0]<this.x){
                 this.generateTurtleTracks(true,(this.get_prior_coordinates[0]+1),(this.x+1))
-                // for(let i =;i< ; i++){
-                //     this.turtle_tracks.push([i,this.y])   
-                // }
             }else{
                 this.generateTurtleTracks(true,this.x,this.get_prior_coordinates[0])
-                // for(let i =this.x; i <get_prior_coordinates[0]; i++){
-                //     this.turtle_tracks.push([i,this.y])   
-                // }
             }
         }else if(this.get_prior_coordinates[1]!==this.y){
             if(this.get_prior_coordinates[1]<this.y){
                 this.generateTurtleTracks(false,(this.get_prior_coordinates[1] +1),(this.y+1))
-                // for(let i = get_prior_coordinates[1] +1; i<=this.y; i++){
-                //     this.turtle_tracks.push([this.x,i])   
-                // }
             }else{
                 this.generateTurtleTracks(false,this.y,this.get_prior_coordinates[1])
-                // for(let i =this.y; i <get_prior_coordinates[1]; i++){
-                //     this.turtle_tracks.push([this.x,i])   
-                // }
             }
         }
         return this;
     }
+
     // move forward # steps
     forward(steps){
-        console.log(`before updating x: ${this.x}, y: ${this.y}, steps: ${steps}\n`)
-        console.log(`x_direction: ${this.x_direction}, y_direction: ${this.y_direction}\n`)
         this.get_prior_coordinates = [this.x,this.y]
         if(!this.y_direction){
             if(this.x_direction===1){
@@ -122,7 +97,7 @@ class Turtle{
                 this.y +=steps
             }
         }
-
+        // update min x && y, max x && y coordinates to get the latest corresponding value.
         if(this.x > this.max_x_coordinate){
             this.max_x_coordinate = this.x
         }
@@ -135,20 +110,17 @@ class Turtle{
         if(this.y < this.min_y_coordinate){
             this.min_y_coordinate = this.y
         }
+        // update array with coordinates of all points the turtle walked.
         this.updateTurtleTrack();
-        console.log(`after updating: x: ${this.x}, y: ${this.y}, turtle_tracks: ${this.turtle_tracks.join('->')}`)
         return this;
     }
     // method to turn turtle left
     left(){
-        console.log(`before left: ${this.x_direction}, ${this.y_direction}`)
-        // this.left_right = true;
-        // this.turn_right= false;
         if(!this.y_direction){
             if(this.x_direction===1){
             // east:
-            // this.x_direction=1, // moving in positive direction. -1 moves in negative direction
-            // this.y_direction=0  // -1 is default, indicating moving in x direction. else if 1, then switch to y direction.
+            // this.x_direction=1, // moving in positive x direction. -1 moves in negative direction
+            // this.y_direction=0  // moving in positive y direction. -1 moves in negative direction
                 this.x_direction = 0
                 this.y_direction= -1
             }else if(this.x_direction===-1){
@@ -173,20 +145,16 @@ class Turtle{
                 this.y_direction = 0
             }
         }
-        console.log(`after left: ${this.x_direction}, ${this.y_direction}`)
         return this;
     }
     // method to turn turtle right
     right(){
-        // this.turn_right= true;
-        // this.turn_left = false;
-        console.log(`before right: ${this.x_direction}, ${this.y_direction}`)
 
         if(!this.y_direction){
             if(this.x_direction===1){
             // east:
-            // this.x_direction=1, // moving in positive direction. -1 moves in negative direction
-            // this.y_direction=0  // -1 is default, indicating moving in x direction. else if 1, then switch to y direction.
+            // this.x_direction=1, // moving in positive x direction. -1 moves in negative direction
+            // this.y_direction=0  // moving in positive y direction. -1 moves in negative direction
                 this.x_direction = 0
                 this.y_direction= 1
             }else if(this.x_direction===-1){
@@ -211,14 +179,15 @@ class Turtle{
                 this.y_direction = 0
             }
         }
-        console.log(`after right: ${this.x_direction}, ${this.y_direction}`)
         return this;
     }
     allPoints(){
         return this.turtle_tracks
     }
     print(){
-            const groupBy = (objectArray) => {
+        // groupByXCoordinate function needed to group by elements by first index (x) of
+        // each sub array in array
+            const groupByXCoordinate = (objectArray) => {
                 return objectArray.reduce(function (total, obj) {
                     let key = obj[0];
                     if (!total[key]) {
@@ -230,14 +199,16 @@ class Turtle{
                     return total;
                 }, {});
             }
+            // update x and y coordinates respectfully if negative coordinate is found
             this.updateXCoordinateIfNegative
             this.updateYCoordinateIfNegative
-            const tracksGrouped = groupBy(this.allPoints());
+
+            // group by turtle tracks by x coordinate 
+            const tracksGrouped = groupByXCoordinate(this.allPoints());
             let outputGrid=[]
             let row = ''
-            console.log(this.allPoints())
-            console.log(tracksGrouped)
-            console.log(`${this.min_x_coordinate}, ${this.min_y_coordinate} -> ${this.max_x_coordinate}, ${this.max_y_coordinate}`)
+
+            // build each row and check if 
             for(let j=this.min_y_coordinate;j<=this.max_y_coordinate+1;j++){
               for(let i=this.min_x_coordinate;i<=this.max_x_coordinate+1;i++){
                 if(!tracksGrouped[i]){
@@ -246,26 +217,31 @@ class Turtle{
                   if(!tracksGrouped[i].includes(j)){
                   row+='-'
                   }else{
-                  row+='*'
+                  row+='@'
                   }
                 }
               }
               outputGrid.push(row)
                 row=''
             }
+            console.log('\n-- BEGIN LOG\n')
             console.log(outputGrid.join('\n'))
+            console.log('\n-- END LOG\n\n\n')
             return this;
     }
 }
-// new Turtle(0, 0)
-//   .forward(5)
-//   .right()
-//   .forward(5)
-//   .right()
-//   .forward(5)
-//   .right()
-//   .forward(5)
-//   .print()
+new Turtle(0, 0)
+  .forward(5)
+  .right()
+  .forward(5)
+  .right()
+  .forward(5)
+  .right()
+  .forward(5)
+  .print()
+
+
+new Turtle(0, 0).forward(3).left().forward(3).print();
 
 new Turtle(0, 4)
   .forward(3)
@@ -282,5 +258,3 @@ new Turtle(0, 4)
   .left()
   .forward(3)
   .print();
-
-// new Turtle(0, 0).forward(3).left().forward(3).print();
