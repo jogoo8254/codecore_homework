@@ -22,9 +22,9 @@ class Turtle{
         this.y_direction = 0;
         // this.turn_left = false;
         // this.turn_right = false; // by default at starting point you move forward right
-        this.turtle_tracks = []
-        this.max_x_coordinate,this.min_x_coordinate, this.max_y_coordinate,this.min_y_coordinate =0
-
+        this.turtle_tracks = [[x,y]]
+        this.max_x_coordinate=0,this.min_x_coordinate=0, this.max_y_coordinate=0,this.min_y_coordinate =0
+        this.get_prior_coordinates = [x,y]
     }
     // row to build start point
     // setStartPoint(){
@@ -46,27 +46,27 @@ class Turtle{
         return this;
     }
     updateTurtleTrack(){
-        const get_prior_coordinates = this.turtle_tracks.push()
-        if(get_prior_coordinates[0]!==this.x){
-            if(get_prior_coordinates[0]<this.x){
-                this.generateTurtleTracks(true,(get_prior_coordinates[0]+1),(this.x+1))
+        // console.log(`get_prior_coordinates ${get_prior_coordinates}`)
+        if(this.get_prior_coordinates[0]!==this.x){
+            if(this.get_prior_coordinates[0]<this.x){
+                this.generateTurtleTracks(true,(this.get_prior_coordinates[0]+1),(this.x+1))
                 // for(let i =;i< ; i++){
                 //     this.turtle_tracks.push([i,this.y])   
                 // }
             }else{
-                this.generateTurtleTracks(true,this.x,get_prior_coordinates[0])
+                this.generateTurtleTracks(true,this.x,this.get_prior_coordinates[0])
                 // for(let i =this.x; i <get_prior_coordinates[0]; i++){
                 //     this.turtle_tracks.push([i,this.y])   
                 // }
             }
-        }else if(get_prior_coordinates[1]!==this.y){
-            if(get_prior_coordinates[1]<this.y){
-                this.generateTurtleTracks(false,(get_prior_coordinates[1] +1),(this.y+1))
+        }else if(this.get_prior_coordinates[1]!==this.y){
+            if(this.get_prior_coordinates[1]<this.y){
+                this.generateTurtleTracks(false,(this.get_prior_coordinates[1] +1),(this.y+1))
                 // for(let i = get_prior_coordinates[1] +1; i<=this.y; i++){
                 //     this.turtle_tracks.push([this.x,i])   
                 // }
             }else{
-                this.generateTurtleTracks(false,this.y,get_prior_coordinates[i])
+                this.generateTurtleTracks(false,this.y,this.get_prior_coordinates[1])
                 // for(let i =this.y; i <get_prior_coordinates[1]; i++){
                 //     this.turtle_tracks.push([this.x,i])   
                 // }
@@ -76,8 +76,9 @@ class Turtle{
     }
     // move forward # steps
     forward(steps){
-        console.log(this.x)
-        console.log(this.y)
+        console.log(`before updating x: ${this.x}, y: ${this.y}, steps: ${steps}\n`)
+        console.log(`x_direction: ${this.x_direction}, y_direction: ${this.y_direction}\n`)
+        this.get_prior_coordinates = [this.x,this.y]
         if(!this.y_direction){
             if(this.x_direction===1){
             // east:
@@ -91,16 +92,16 @@ class Turtle{
                 this.x -= steps
             }
         }else if(!this.x_direction){
-            if(this.y_direction===1){
+            if(this.y_direction===-1){
             // north:
             // x_direction=0,
-            // y_direction = 1
-                this.y +=steps
-            }else if(this.y_direction===-1){
+            // y_direction = -1
+                this.y -=steps
+            }else if(this.y_direction===1){
             // south:
             // x_direction = 0
-            // y_direction = -1
-                this.y_direction -=steps
+            // y_direction = 1
+                this.y +=steps
             }
         }
 
@@ -117,10 +118,12 @@ class Turtle{
             this.min_y_coordinate = this.y
         }
         this.updateTurtleTrack()
+        console.log(`after updating: x: ${this.x}, y: ${this.y}, turtle_tracks: ${this.turtle_tracks.join('->')}`)
         return this;
     }
     // method to turn turtle left
     left(){
+        console.log(`before left: ${this.x_direction}, ${this.y_direction}`)
         // this.left_right = true;
         // this.turn_right= false;
         if(!this.y_direction){
@@ -138,26 +141,29 @@ class Turtle{
                 this.y_direction = 1
             }
         }else if(!this.x_direction){
-            if(this.y_direction===1){
+            if(this.y_direction===-1){
             // north:
             // this.x_direction=0,
-            // this.y_direction = 1
+            // this.y_direction = -1
                 this.x_direction = -1
                 this.y_direction = 0
-            }else if(this.y_direction===-1){
+            }else if(this.y_direction===1){
             // south:
             // this.x_direction = 0
-            // this.y_direction = -1
+            // this.y_direction = 1
                 this.x_direction = 1
                 this.y_direction = 0
             }
         }
+        console.log(`after left: ${this.x_direction}, ${this.y_direction}`)
         return this;
     }
     // method to turn turtle right
     right(){
         // this.turn_right= true;
         // this.turn_left = false;
+        console.log(`before right: ${this.x_direction}, ${this.y_direction}`)
+
         if(!this.y_direction){
             if(this.x_direction===1){
             // east:
@@ -173,20 +179,21 @@ class Turtle{
                 this.y_direction = -1
             }
         }else if(!this.x_direction){
-            if(this.y_direction===1){
+            if(this.y_direction===-1){
             // north:
             // this.x_direction=0,
-            // this.y_direction = 1
+            // this.y_direction = -1
                 this.x_direction = 1
                 this.y_direction = 0
-            }else if(this.y_direction===-1){
+            }else if(this.y_direction===1){
             // south:
             // this.x_direction = 0
-            // this.y_direction = -1
+            // this.y_direction = 1
                 this.x_direction = -1
                 this.y_direction = 0
             }
         }
+        console.log(`after right: ${this.x_direction}, ${this.y_direction}`)
         return this;
     }
     allPoints(){
@@ -206,26 +213,28 @@ class Turtle{
                 }, {});
             }
             
-            let tracksGrouped = groupBy(this.allPoints());
+            const tracksGrouped = groupBy(this.allPoints());
             let outputGrid=[]
             let row = ''
             console.log(this.allPoints())
+            console.log(tracksGrouped)
+            console.log(`${this.min_x_coordinate}, ${this.min_y_coordinate} -> ${this.max_x_coordinate}, ${this.max_y_coordinate}`)
             for(let i=this.min_x_coordinate;i<=this.max_x_coordinate;i++){
               for(let j=this.min_y_coordinate;j<=this.max_y_coordinate;j++){
                 if(!tracksGrouped[i]){
                   row+='-'
                 }else{
                   if(!tracksGrouped[i].includes(j)){
-                  row+=empty_trail
+                  row+='-'
                   }else{
-                  row+=turtle_foot_print
+                  row+='*'
                   }
                 }
               }
               outputGrid.push(row)
                 row=''
             }
-            console.log([outputGrid].join('\n'))
+            console.log(outputGrid.join('\n'))
             return this;
     }
 }
