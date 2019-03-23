@@ -34,6 +34,8 @@ class Turtle{
     updateXCoordinateIfNegative(){
         if(this.min_x_coordinate <0){
             const remainder = 0 - this.min_x_coordinate
+            this.min_x_coordinate +=remainder
+            this.max_x_coordinate +=remainder
             this.turtle_tracks.forEach(function(element){
                 element[0] +=remainder
             })
@@ -43,6 +45,8 @@ class Turtle{
     updateYCoordinateIfNegative(){
         if(this.min_y_coordinate <0){
             const remainder = 0 - this.min_y_coordinate
+            this.min_y_coordinate +=remainder
+            this.max_y_coordinate +=remainder
             this.turtle_tracks.forEach(function(element){
                 element[1] +=remainder
             })
