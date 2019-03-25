@@ -258,3 +258,43 @@ new Turtle(0, 4)
   .left()
   .forward(3)
   .print();
+
+const fs = require('fs');
+
+const args = process.argv[2];
+
+// fs.readFile(fileName, (err, data) => {
+// 	const fileContents = data.toString();
+//     const linesArray = fileContents.split('\n');
+// 	linesArray.forEach((line, index) => {
+// 		console.log(`${index + 1} | ${line}`);
+// 	});
+// });
+
+// $ node turtle.js t5,5-f10-r-f5-r-f10-r-f5-r-f2-r-f5-l-f2-l-f5
+// tX,Y for new Turtle where X & Y are numbers representing the starting x & y coordinates. 
+// If this command is not given, begin the turtle at (0, 0).
+// fN for forward where N is a number representing how many units the turtle moves forward.
+// r for right
+// l for left
+
+// if(args){
+//     const listOfArguments = args.split('-')
+//     const firstArg = listOfArguments[0].split(',').
+//     const tX = .split(',')[0].slice(1)
+
+//     const tY = listOfArguments
+//     args.forEach(function(element){
+
+//     })
+//     const fileName = args[0]
+//     // fetch and read the contents of file
+//     const fs = require('fs')
+//     fs.readFile(fileName,(err, data) =>{
+//         if(err);
+//         let fileContents = data.toString().split('\n')
+//         console.log(boxIt(fileContents))
+//     })
+// }else{// else read contents from terminal
+//     console.log(boxIt(args))
+// }
