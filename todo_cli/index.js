@@ -12,30 +12,21 @@ todoMenuBar(() =>{
             viewBar();
         }else if(answer ==='n'){
             addBar();
-        }else if(answer==='cX'){
-    
-        }else if(answer ==='dX'){
-        
+        }else if(answer[0]==='c'){
+            completeBar(answer)
+        }else if(answer[0] ==='d'){
+            deleteBar(answer)
         }else if(answer==='q'){
-         return;
+            console.log('See you soon! 😄')
+            return;
         }
         rl.close();
     });
     todoMenuBar();    
 });
-let todo_list = [
-    "Take out the trash",
-    "Buy toothpaste",
-    "Buy Snickerdoodles",
-    "Fix the climate",
-    "Find a cure for aging"]
+let todo_list = []
 let marked=[]
 viewBar(() => {
-    // 0 [✓] Take out the trash
-    // 1 [✓] Buy toothpaste
-    // 2 [ ] Buy Snickerdoodles
-    // 3 [ ] Fix the climate
-    // 4 [ ] Find a cure for aging
     for(let i=0; i< todo_list.length;i++){
         console.log(`${i} [${marked}] ${todo_list[i]}`);
     }
@@ -52,4 +43,16 @@ addBar(()=>{
 completeBar((input)=>{
     let index = parseInt(input.slice(1))
     marked[index]='✓'
+})
+
+deleteBar((input)=>{
+    let index = parseInt(input.slice(1))
+    console.log(`Deleted "${todo_list[index]}"`);
+    if(index===0){
+        todo_list.shift()
+    }else if(index===todo_list.length-1){
+        todo_list.pop()
+    }else{
+        todo_list = todo_list.slice(0,index) + todo_list.slice(iindex+1,todo_list.length)
+    }
 })
