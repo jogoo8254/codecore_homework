@@ -29,6 +29,7 @@ let todo_list = [
     "Buy Snickerdoodles",
     "Fix the climate",
     "Find a cure for aging"]
+let marked=[]
 viewBar(() => {
     // 0 [✓] Take out the trash
     // 1 [✓] Buy toothpaste
@@ -36,15 +37,19 @@ viewBar(() => {
     // 3 [ ] Fix the climate
     // 4 [ ] Find a cure for aging
     for(let i=0; i< todo_list.length;i++){
-        console.log(`${i} [ ] ${todo_list[i]}`);
+        console.log(`${i} [${marked}] ${todo_list[i]}`);
     }
 });
 
 addBar(()=>{
     rl.question('What?', (answer) => {
-        todo_list.push(answer);
+        todo_list.push(` ${answer}`);
+        marked.push(' ')
         rl.close();
     });    
 });
 
-
+completeBar((input)=>{
+    let index = parseInt(input.slice(1))
+    marked[index]='✓'
+})
