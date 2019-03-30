@@ -77,6 +77,7 @@ class Todo_list_application {
     }
     // quit function: quit the CLI
     quit(){
+        console.log('See you soon!');
         rl.close();
         return;
     }
