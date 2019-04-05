@@ -6,7 +6,7 @@ router.get('/',(req,res)=>{
     res.send('<div>welcome</div>'); // render('welcome') home
 });
 router.get('/cohorts',(req,res)=>{
-    res.sends('<div>Cohorts</div>'); // render('cohorts')
+    res.redirect('/cohorts/new')
 });
 
 router.post('/',(req,res)=>{
