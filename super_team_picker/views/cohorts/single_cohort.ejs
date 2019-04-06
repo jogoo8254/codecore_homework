@@ -1,5 +1,5 @@
 <%- include("../partials/header") %>
-<form action="/cohort/<%= cohort.id %>" method="POST">
+<form method="GET">
   <div>
     <nav class="nav_cohort">
         <a class="navbar-brand" href="#">
@@ -7,7 +7,7 @@
         <img src="<%= cohort.logo_url %>" height="50" width="50">
          <% } %>    
         </a>
-        <a class="cohort-name-form" href="/home">
+        <a class="cohort-name-form">
         <h2><%= cohort.name %></h2>
         </a>
     </nav>
@@ -30,7 +30,7 @@
   </div>
   <div>
     <label>Quantity</label> <br>
-    <input type="text" name="quantity" placeholder="">
+    <input type="number" name="quantity" placeholder="">
   </div>
   <input type="submit" value="Assign Teams">
 </form>
