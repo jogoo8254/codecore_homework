@@ -3,15 +3,15 @@
   <div>
     <nav class="nav_cohort">
         <a class="navbar-brand" href="#">
-        <% if(cohort.logo_url){ %>
-        <img src="<%= cohort.logo_url %>" height="200" width="200">
+        <% if(logo_url){ %>
+        <img src="<%= logo_url %>" height="200" width="200">
          <% } %>    
         </a>
         <a class="cohort-name-form">
-        <h2><%= cohort.name %></h2>
+        <h2><%= name %></h2>
         </a>
     </nav>
-    <p><%= cohort.members%></p>
+    <p><%= members%></p>
   </div>
   <div>
     <label>Method</label> <br>
@@ -33,7 +33,14 @@
     <input type="number" name="quantity" placeholder="">
   </div>
   <input type="submit" value="Assign Teams">
+<%if(list_of_members.length > 0) {%>
+<div>
+  <h2>#     Members</h2>
+    <% for (let i=0;i < list_of_members.length;i++) { %>
+        <p> <%= i+1 %>     <%= list_of_members[i].join(', ')%></p>
+    <% } %>
+  </div>
+  <% } %>
 </form>
-  
   <%- include("../partials/footer") %>
   

@@ -11,13 +11,55 @@ router.get('/cohorts/new',(req,res)=>{
 
 router.get("/cohorts/:id", (req, res) => {
   const id = req.params.id;
-  console.log('==============', req.query);
+  console.log("===================")
+  console.log(`id: ${id}`)
+  // console.log('params', req.params)
+  // console.log('==============', req.query);
+  const chosen_quantity = parseInt(req.query.quantity)
+  const chosen_method = req.query.choose_method
+  // http://localhost:4545/cohorts/9
+  // http://localhost:4545/cohorts/9?choose_method=Number+Per+Team&quantity=4
+  console.log(`req.query.logo_url: ${req.query.logo_url}`)
+  console.log(`req.query.name: ${req.query.name}`)
+  console.log(`req.query.members: ${req.query.members}`)
+  console.log(`req.query.name: ${req.query.name}`)
+  console.log(`req.query.job: ${req.query.job}`)
+  
+  console.log(`req.query: ${req.query}`)
+  console.log(``)
+  console.log(`method: ${chosen_method} and quantity: ${chosen_quantity}`)
+
   knex("cohort")
     .where("id", id)
     .first()
     .then(cohort => {
+
+      console.log(`cohort_id: ${cohort.id}`)
+      console.log(`cohort_logo_url: ${cohort.logo_url}`)
+      console.log(`cohort_members: ${cohort.members}`)
+      console.log(`cohort_name: ${cohort.name}`)
       if (cohort) {
-        res.render("cohorts/single_cohort", {cohort});
+        if(!chosen_method){
+          res.render("cohorts/show", {
+            id: cohort.id,
+            name: cohort.name,
+            logo_url: cohort.logo_url,
+            members: cohort.members,
+            list_of_members: []
+          });
+        }else{
+          res.render("cohorts/show",{
+            id: cohort.id,
+            name: cohort.name,
+            logo_url: cohort.logo_url,
+            members: cohort.members,
+            list_of_members: executeMethodOnMembers(
+              members = cohort.members, 
+              method=chosen_method,
+              quantity=chosen_quantity
+              )
+          })
+        }
       } else {
         res.send(`Cannot find cluck with id=${id}`);
       }
@@ -70,19 +112,29 @@ router.post('/',(req,res)=>{
 
 
 
-function teamCount(members, quantity) {
-  const list_of_members = members.split(", ")
-  const length_list_members = list_of_members.length //10
-  const loopCount = Math.ceil(length_list_members / quantity) //3
+function executeMethodOnMembers(members, method, quantity) {
+  const members_list = members.split(",")
+  const length_members_list = members_list.length //10
+  const loopCount = Math.ceil(length_members_list / quantity) //3
   let list_of_teams = []
   let team = []
-  for(let i= 0; i < quantity; i++){
-    for(let j= 0; j < loopCount;j++){
-      let random_member = list_of_members(() =>{
+  let x=0;
+  let y=0;
+  if(method === "Team Count"){
+    x = quantity;
+    y = loopCount;
+  }else if(method ==="Number Per Team"){
+    x = loopCount;
+    y = quantity;
+  }
+  for(let i= 0; i < x; i++){
+    for(let j= 0; j < y;j++){
+      const random_member = members_list.sort(() =>{
         return 0.5 - Math.random()
-      })[0].shift()//9
+      })[0]
       team.push(random_member)
-      if(list_of_members.length ==0)
+      members_list.shift()
+      if(members_list.length ==0)
         break;
     }
     list_of_teams.push(team)
@@ -90,27 +142,5 @@ function teamCount(members, quantity) {
   }
   return list_of_teams
 }
-
-function numberPerTeam(members, quantity) {
-  const list_of_members = members.split(", ")
-  const length_list_members = list_of_members.length //10
-  const loopCount = Math.ceil(length_list_members / quantity) //3
-  let list_of_teams = []
-  let team = []
-  for(let i= 0; i < loopCount; i++){
-    for(let j= 0; j < quantity;j++){
-      let random_member = list_of_members(() =>{
-        return 0.5 - Math.random()
-      })[0].shift()//9
-      team.push(random_member)
-      if(list_of_members.length ==0)
-        break;
-    }
-    list_of_teams.push(team)
-    team = []
-  }
-  return list_of_teams
-}
-
 
 module.exports = router;
