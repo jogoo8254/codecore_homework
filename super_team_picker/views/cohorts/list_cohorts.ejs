@@ -1,21 +1,22 @@
 <%- include("../partials/header") %>
-<% for(let cohort of cohorts){ %>
 <form action="/cohorts" method="POST">
-  <div>
-    <nav class="nav_cohort">
-        <a class="navbar-brand" href="#">
-        <% if(cohort.logo_url){ %>
-        <img src="<%= cohort.logo_url %>" height="50" width="50">
-         <% } %>    
-        </a>
-        <a class="cohort-name-form" href="/home">
-        <h2><%= cohort.name %></h2>
-        </a>
-    </nav>
-  </div>
-  <p><%= cohort.members%></p>
-  <input type="submit" value="Submit!">
+<% for(let cohort of cohorts){ %>
+<% cohorts.forEach(function(cohort) { %>
+<div>
+<nav class="nav_cohort">
+    <a class="navbar-brand" href="#">
+    <% if(cohort.logo_url){ %>
+    <img src="<%= cohort.logo_url %>" height="200" width="200">
+     <% } %>    
+    </a>
+    <a class="cohort-name-form" href="/home">
+    <h2><%= cohort.name %></h2>
+    </a>
+</nav>
+</div>
+<p><%= cohort.members%></p>
+<input type="submit" value="Show cohort">
+<% }) %>
 </form>
-<% } %>
 
 <%- include("../partials/footer") %>

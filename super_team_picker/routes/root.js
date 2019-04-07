@@ -65,23 +65,43 @@ router.get("/cohorts/:id", (req, res) => {
       }
     });
 });
+router.get("/cohorts", (req, res) => {
+  const id = req.params.id;
+  console.log("===================")
+  console.log(`id: ${id}`)
+  const chosen_quantity = parseInt(req.query.quantity)
+  const chosen_method = req.query.choose_method
+  // http://localhost:4545/cohorts/9
+  // http://localhost:4545/cohorts/9?choose_method=Number+Per+Team&quantity=4
+  console.log(`req.query.logo_url: ${req.query.logo_url}`)
+  console.log(`req.query.name: ${req.query.name}`)
+  console.log(`req.query.members: ${req.query.members}`)
+  console.log(`req.query.name: ${req.query.name}`)
+  console.log(`req.query.job: ${req.query.job}`)
+  
+  console.log(`req.query: ${req.query}`)
+  console.log(``)
+  console.log(`method: ${chosen_method} and quantity: ${chosen_quantity}`)
 
-// router.get("/cohorts/:id",(req,res) =>{
-//   const fullName = request.query.fullName;
-//   const favouriteColour = request.query.favouriteColour;
-//   const message = request.query.message;
+  knex("cohort")
+    // .where("id", id)
+    // .first()
+    .then(cohorts => {
+      // console.log(`cohort_id: ${cohort.id}`)
+      // console.log(`cohort_logo_url: ${cohort.logo_url}`)
+      // console.log(`cohort_members: ${cohort.members}`)
+      // console.log(`cohort_name: ${cohort.name}`)
+      if (cohorts) {
+        cohorts.forEach(function(e){
+          console.log(e)
+        })
+        res.render("cohorts/list_cohorts", {cohorts});
+      } else {
+        res.send(`Cannot find cluck with id=${id}`);
+      }
+    });
+});
 
-// })
-
-// app.get("/thank_you", (request, response) => {
-
-//   response.render("thankYou", {
-//     fullName: fullName,
-//     favouriteColour: favouriteColour,
-//     favouriteDay: request.query.favouriteDay,
-//     message: message
-//   });
-// });
   // NAME: cohort#create, METHOD: POST, PATH: /cohorts
   router.post("/cohorts/new", (req, res) => {
     const logo_url = req.body.logo_url;
@@ -102,10 +122,6 @@ router.get("/cohorts/:id", (req, res) => {
       });
   });
   
-router.get('/cohorts',(req,res)=>{
-    res.render('cohorts/list_cohorts');
-});
-
 router.post('/',(req,res)=>{
     res.redirect('/');
 })
@@ -143,4 +159,15 @@ function executeMethodOnMembers(members, method, quantity) {
   return list_of_teams
 }
 
+
+// router.delete("/:id", (req, res) => {
+//   const id = req.params.id;
+
+//   knex("articles")
+//     .where("id", id)
+//     .del()
+//     .then(() => {
+//       res.redirect("/articles");
+//     });
+// });
 module.exports = router;
