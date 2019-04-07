@@ -3,7 +3,7 @@ const router = express.Router();
 const knex = require("../db/client");
 
 router.get('/',(req,res)=>{
-    res.send('<div><h1>Welcome to Super Team Picker!</h1></div>'); // render('welcome') home
+    res.render('cohorts/welcome');
 });
 router.get('/cohorts/new',(req,res)=>{
   res.render('cohorts/new');
@@ -11,33 +11,14 @@ router.get('/cohorts/new',(req,res)=>{
 
 router.get("/cohorts/:id", (req, res) => {
   const id = req.params.id;
-  console.log("===================")
-  console.log(`id: ${id}`)
-  // console.log('params', req.params)
-  // console.log('==============', req.query);
   const chosen_quantity = parseInt(req.query.quantity)
   const chosen_method = req.query.choose_method
   // http://localhost:4545/cohorts/9
   // http://localhost:4545/cohorts/9?choose_method=Number+Per+Team&quantity=4
-  console.log(`req.query.logo_url: ${req.query.logo_url}`)
-  console.log(`req.query.name: ${req.query.name}`)
-  console.log(`req.query.members: ${req.query.members}`)
-  console.log(`req.query.name: ${req.query.name}`)
-  console.log(`req.query.job: ${req.query.job}`)
-  
-  console.log(`req.query: ${req.query}`)
-  console.log(``)
-  console.log(`method: ${chosen_method} and quantity: ${chosen_quantity}`)
-
   knex("cohort")
     .where("id", id)
     .first()
     .then(cohort => {
-
-      console.log(`cohort_id: ${cohort.id}`)
-      console.log(`cohort_logo_url: ${cohort.logo_url}`)
-      console.log(`cohort_members: ${cohort.members}`)
-      console.log(`cohort_name: ${cohort.name}`)
       if (cohort) {
         if(!chosen_method){
           res.render("cohorts/show", {
@@ -65,32 +46,13 @@ router.get("/cohorts/:id", (req, res) => {
       }
     });
 });
+
 router.get("/cohorts", (req, res) => {
   const id = req.params.id;
-  console.log("===================")
-  console.log(`id: ${id}`)
   const chosen_quantity = parseInt(req.query.quantity)
   const chosen_method = req.query.choose_method
-  // http://localhost:4545/cohorts/9
-  // http://localhost:4545/cohorts/9?choose_method=Number+Per+Team&quantity=4
-  console.log(`req.query.logo_url: ${req.query.logo_url}`)
-  console.log(`req.query.name: ${req.query.name}`)
-  console.log(`req.query.members: ${req.query.members}`)
-  console.log(`req.query.name: ${req.query.name}`)
-  console.log(`req.query.job: ${req.query.job}`)
-  
-  console.log(`req.query: ${req.query}`)
-  console.log(``)
-  console.log(`method: ${chosen_method} and quantity: ${chosen_quantity}`)
-
   knex("cohort")
-    // .where("id", id)
-    // .first()
     .then(cohorts => {
-      // console.log(`cohort_id: ${cohort.id}`)
-      // console.log(`cohort_logo_url: ${cohort.logo_url}`)
-      // console.log(`cohort_members: ${cohort.members}`)
-      // console.log(`cohort_name: ${cohort.name}`)
       if (cohorts) {
         cohorts.forEach(function(e){
           console.log(e)
