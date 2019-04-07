@@ -1,7 +1,6 @@
 <%- include("../partials/header") %>
-<form action="/cohorts" method="POST">
+<form action="/cohorts">
 <% for(let cohort of cohorts){ %>
-<% cohorts.forEach(function(cohort) { %>
 <div>
 <nav class="nav_cohort">
     <a class="navbar-brand" href="#">
@@ -16,7 +15,7 @@
 </div>
 <p><%= cohort.members%></p>
 <input type="submit" value="Show cohort">
-<% }) %>
+<% } %>
 </form>
 
 <%- include("../partials/footer") %>
