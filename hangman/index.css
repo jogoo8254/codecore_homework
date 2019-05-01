@@ -1,0 +1,18 @@
+.hangman {
+    width: 500px;
+    height: 612px;
+    align-items: center;
+}
+.lines {
+    margin: 25;
+    padding: 0;
+    font-size: 2.4em;
+  }
+
+#hangman-1 {background-image: url(./images/gallows.jpg); }
+#hangman-2 {background-image: url(./images/gallows+head.jpg); }
+#hangman-3 {background-image: url(./images/gallows+head+torso.jpg); }
+#hangman-4 {background-image: url(./images/gallows+head+torso+leg.jpg); }
+#hangman-5 {background-image: url(./images/gallows+head+torso+2leg.jpg); }
+#hangman-6 {background-image: url(./images/gallows+head+torso+2leg+arm.jpg); }
+#hangman-7 {background-image: url(./images/gallows+head+torso+2leg+2arm.jpg); }
