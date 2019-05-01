@@ -18,12 +18,14 @@ $(document).ready(() => {
     
     console.log(number_letters)
     const line = '\u2501'
-    let lines=''
+    let lines=[]
     for(let i =0; i < number_letters; i++){
-        lines += `${line} `
-        word_to_guess[i]='&nbsp;&nbsp;'
+        lines.push(line)
+        word_to_guess.push('&nbsp;&nbsp;')
+        console.log(word_to_guess.join('&nbsp;'))
+        console.log(lines.join('&nbsp;'))
     }
-    $('#input_slot').append($(`<div class="lines">${lines}</div>`))
+    $('#input_slot').append($(`<div class="lines">${lines.join('&nbsp;')}</div>`))
 
     for(let i=0;i<26;i++){
         const b_id=$('.button')[i].id
@@ -45,10 +47,11 @@ $(document).ready(() => {
     function addLetterToCorrespondingLine(letter){
         for(let i = 0; i< number_letters;i++){
             if(choose_random_word[i]===letter){
-                word_to_guess[i]=`&nbsp;${letter.toUpperCase()}`
-                console.log(word_to_guess.join('  '))
+                word_to_guess[i]=`${letter.toUpperCase()}`
+                console.log(word_to_guess.join('&nbsp;'))
+                console.log(lines.join('&nbsp;'))
                 $('.letter').remove()
-                $('#input_slot').prepend($(`<div class="letter">${word_to_guess.join('&nbsp;&nbsp;')}</div>`))                
+                $('#input_slot').prepend($(`<div class="letter">${word_to_guess.join('&nbsp;')}</div>`))                
             }
         }
     }
