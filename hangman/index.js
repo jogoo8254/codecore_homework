@@ -14,11 +14,14 @@ $(document).ready(() => {
     const choose_random_word = sample_words[Math.floor(Math.random() * sample_words.length)]
     console.log(choose_random_word)
     const number_letters = choose_random_word.length
+    let word_to_guess=[]
+    
     console.log(number_letters)
     const line = '\u2501'
     let lines=''
     for(let i =0; i < number_letters; i++){
         lines += `${line} `
+        word_to_guess[i]='&nbsp;&nbsp;'
     }
     $('#input_slot').append($(`<div class="lines">${lines}</div>`))
 
@@ -42,11 +45,10 @@ $(document).ready(() => {
     function addLetterToCorrespondingLine(letter){
         for(let i = 0; i< number_letters;i++){
             if(choose_random_word[i]===letter){
-                let spaces=''
-                for(let j = 0; j<=i;j++){
-                    spaces+='  '
-                }
-                $('#input_slot').prepend($(`<div class="letter">${spaces}${letter.toUpperCase()}</div>`))                
+                word_to_guess[i]=`&nbsp;${letter.toUpperCase()}`
+                console.log(word_to_guess.join('  '))
+                $('.letter').remove()
+                $('#input_slot').prepend($(`<div class="letter">${word_to_guess.join('&nbsp;&nbsp;')}</div>`))                
             }
         }
     }
