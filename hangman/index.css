@@ -1,13 +1,9 @@
 .hangman {
     width: 500px;
     height: 612px;
-    align-items: center;
 }
-/* #input_slot {
-    /* margin-top: -40; 
-    padding: 0;
-    font-size: 2.5em;
-  } */
+
+
 #letter {
   font-size: 3.2em;
 }

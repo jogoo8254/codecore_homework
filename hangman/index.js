@@ -5,13 +5,22 @@ $(document).ready(() => {
     for(let i=1; i<7; i++){
         $(`#hangman-${i}`).toggle()
     }
-    const sample_words = ["birthday","time","person","year","way","day","thing",
-    "man","world","life","hand","part","child","eye","woman",
-    "place","work","week","case","point","company","number",
-    "group","problem","fact","stranger","saturday","monday",
-    "tuesday","wednesday","thursday","friday"]
-
-    const choose_random_word = "hi"//sample_words[Math.floor(Math.random() * sample_words.length)]
+    const sample_words = {
+        "month of the year": ["january","february","march","april","may","june","july","august","september","october","november","december"],
+        "day of the week": ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"],
+        animal: ["lion","cat","dog","giraffe","elephant","crocodile","antelope","buffalo","mouse","chicken","tortoise","shark","whale","fish","hawk","eagle","tiger","bear","leopard","pigeon","fox"],
+        sport: ["basketball","soccer","football","lacrosse","tennis","baseball","hockey","boxing","badminton","dodgeball","golf","squash","softball","volleyball"],
+        fruits: ["banana","grapefruit","papaya","pineapple","grape","apple","peach","cherry","mango","pear","blackberry","strawberry","plum","kiwi","watermelon","mandarine","orange"],
+        "common word": ["stranger","hello","birthday","life","world","child","man","woman","time","year","friend"]
+    }
+    // ["birthday","time","person","year","way","day","thing",
+    // "man","world","life","hand","part","child","eye","woman",
+    // "place","work","week","case","point","company","number",
+    // "group","problem","fact","stranger","saturday","monday",
+    // "tuesday","wednesday","thursday","friday"]
+    const hint = Object.keys(sample_words)[Math.floor(Math.random() * Object.keys(sample_words).length)]
+    const choose_random_word = sample_words[hint][Math.floor(Math.random() * sample_words[hint].length)]
+    console.log(hint)
     console.log(choose_random_word)
     const number_letters = choose_random_word.length
     let word_to_guess=[]
@@ -20,10 +29,6 @@ $(document).ready(() => {
         word_to_guess.push('&nbsp;&nbsp;')
     }
 
-    // $('#input_slot').append($(`<div class="lines">${lines.join('&nbsp;')}</div>`))
-    // $('#input_slot').prepend($(`<div class="letter"><u>D</u>&nbsp;<u>I</u>&nbsp;<u>S</u>&nbsp;<u>C</u>&nbsp;<u>I</u>&nbsp;<u>P</u>&nbsp;<u>L</u>&nbsp;<u>I</u>&nbsp;<u>N</u>&nbsp;<u>E</u>&nbsp;</div>`))                
-    // $('.letters').prepend($(`${outputResult()}`))
-    //prepend($(`<div class="letter"><u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u>E</u>&nbsp;</div>`))                
     outputResult()
     for(let i=0;i<26;i++){
         const b_id=$('.button')[i].id
@@ -63,10 +68,11 @@ $(document).ready(() => {
             index_of_toggled_image +=1;
             $(`#hangman-${index_of_toggled_image}`).toggle()
             if(index_of_toggled_image==6){
-                // $('.fullbody').append($(`<div class="game_over">GAME OVER</div>`))
-                $.when()
+                var audioElement = document.createElement('audio')
+                audioElement.setAttribute('src','./sounds/You-lose-sound-effect.mp3')
+                $.when(audioElement.play())
                 .then(function(){
-                alert('You Lose! Game Over!!!')})
+                    alert('Better luck next time...')})
             }    
         }
     }
