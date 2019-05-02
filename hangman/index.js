@@ -11,28 +11,26 @@ $(document).ready(() => {
     "group","problem","fact","stranger","saturday","monday",
     "tuesday","wednesday","thursday","friday"]
 
-    const choose_random_word = sample_words[Math.floor(Math.random() * sample_words.length)]
+    const choose_random_word = "hi"//sample_words[Math.floor(Math.random() * sample_words.length)]
     console.log(choose_random_word)
     const number_letters = choose_random_word.length
     let word_to_guess=[]
     
-    console.log(number_letters)
-    const line = '\u2501'
-    let lines=[]
     for(let i =0; i < number_letters; i++){
-        lines.push(line)
         word_to_guess.push('&nbsp;&nbsp;')
-        console.log(word_to_guess.join('&nbsp;'))
-        console.log(lines.join('&nbsp;'))
     }
-    $('#input_slot').append($(`<div class="lines">${lines.join('&nbsp;')}</div>`))
 
+    // $('#input_slot').append($(`<div class="lines">${lines.join('&nbsp;')}</div>`))
+    // $('#input_slot').prepend($(`<div class="letter"><u>D</u>&nbsp;<u>I</u>&nbsp;<u>S</u>&nbsp;<u>C</u>&nbsp;<u>I</u>&nbsp;<u>P</u>&nbsp;<u>L</u>&nbsp;<u>I</u>&nbsp;<u>N</u>&nbsp;<u>E</u>&nbsp;</div>`))                
+    // $('.letters').prepend($(`${outputResult()}`))
+    //prepend($(`<div class="letter"><u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u></u>&nbsp;<u>E</u>&nbsp;</div>`))                
+    outputResult()
     for(let i=0;i<26;i++){
         const b_id=$('.button')[i].id
         $(`#${b_id}`).click(function(){
             $(`#${b_id}`).css("background-color","salmon");
             if(checkLetter(b_id)){
-                addLetterToCorrespondingLine(b_id)
+                addLetterToCorrespondingSpot(b_id)
             }else{
                 toggleNextImage();
             }
@@ -44,25 +42,42 @@ $(document).ready(() => {
         }
         return false;
     }
-    function addLetterToCorrespondingLine(letter){
+    function addLetterToCorrespondingSpot(letter){
         for(let i = 0; i< number_letters;i++){
             if(choose_random_word[i]===letter){
                 word_to_guess[i]=`${letter.toUpperCase()}`
-                console.log(word_to_guess.join('&nbsp;'))
-                console.log(lines.join('&nbsp;'))
-                $('.letter').remove()
-                $('#input_slot').prepend($(`<div class="letter">${word_to_guess.join('&nbsp;')}</div>`))                
             }
         }
+        outputResult()
+        if(!word_to_guess.includes('&nbsp;&nbsp;')){
+            $.when()
+            .then(function(){
+                alert('Congratulations! You Win!')
+            })
+        }
     }
+
     function toggleNextImage(){
         if(index_of_toggled_image!=6){
             $(`#hangman-${index_of_toggled_image}`).toggle()
             index_of_toggled_image +=1;
             $(`#hangman-${index_of_toggled_image}`).toggle()
             if(index_of_toggled_image==6){
-                $('.fullbody').append($(`<div class="game_over">GAME OVER</div>`))
+                // $('.fullbody').append($(`<div class="game_over">GAME OVER</div>`))
+                $.when()
+                .then(function(){
+                alert('You Lose! Game Over!!!')})
             }    
         }
+    }
+    function outputResult(){
+        let output=''
+        for(let i = 0; i< number_letters; i++){
+            output+=`<font id="letter"><u>${word_to_guess[i]}</u></font>\n`
+            output+=`<font>&nbsp;</font>\n`
+        }
+        $(".letters").remove()
+        $('#input_slot').append(`<div class="letters"></div>`)
+        $('.letters').prepend($(`${output}`))
     }
 })

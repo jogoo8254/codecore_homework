@@ -3,12 +3,17 @@
     height: 612px;
     align-items: center;
 }
-#input_slot {
-    margin: 25;
+/* #input_slot {
+    /* margin-top: -40; 
     padding: 0;
-    font-size: 2.4em;
-  }
-
+    font-size: 2.5em;
+  } */
+#letter {
+  font-size: 3.2em;
+}
+.letter_buttons {
+  margin-bottom: 45;
+}
 #hangman-0 {background-image: url(./images/gallows.jpg); }
 #hangman-1 {background-image: url(./images/gallows+head.jpg); }
 #hangman-2 {background-image: url(./images/gallows+head+torso.jpg); }
