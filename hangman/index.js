@@ -6,18 +6,13 @@ $(document).ready(() => {
         $(`#hangman-${i}`).toggle()
     }
     const sample_words = {
-        "month of the year": ["january","february","march","april","may","june","july","august","september","october","november","december"],
-        "day of the week": ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"],
-        animal: ["lion","cat","dog","giraffe","elephant","crocodile","antelope","buffalo","mouse","chicken","tortoise","shark","whale","fish","hawk","eagle","tiger","bear","leopard","pigeon","fox"],
-        sport: ["basketball","soccer","football","lacrosse","tennis","baseball","hockey","boxing","badminton","dodgeball","golf","squash","softball","volleyball"],
-        fruits: ["banana","grapefruit","papaya","pineapple","grape","apple","peach","cherry","mango","pear","blackberry","strawberry","plum","kiwi","watermelon","mandarine","orange"],
-        "common word": ["stranger","hello","birthday","life","world","child","man","woman","time","year","friend"]
+        "Month of the year": ["january","february","march","april","may","june","july","august","september","october","november","december"],
+        "Day of the week": ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"],
+        Animal: ["lion","cat","dog","giraffe","elephant","crocodile","antelope","buffalo","mouse","chicken","tortoise","shark","whale","fish","hawk","eagle","tiger","bear","leopard","pigeon","fox"],
+        Sport: ["basketball","soccer","football","lacrosse","tennis","baseball","hockey","boxing","badminton","dodgeball","golf","squash","softball","volleyball"],
+        Fruit: ["banana","grapefruit","papaya","pineapple","grape","apple","peach","cherry","mango","pear","blackberry","strawberry","plum","kiwi","watermelon","mandarine","orange"],
+        "Common word": ["stranger","hello","birthday","life","world","child","man","woman","time","year","friend"]
     }
-    // ["birthday","time","person","year","way","day","thing",
-    // "man","world","life","hand","part","child","eye","woman",
-    // "place","work","week","case","point","company","number",
-    // "group","problem","fact","stranger","saturday","monday",
-    // "tuesday","wednesday","thursday","friday"]
     const hint = Object.keys(sample_words)[Math.floor(Math.random() * Object.keys(sample_words).length)]
     const choose_random_word = sample_words[hint][Math.floor(Math.random() * sample_words[hint].length)]
     console.log(hint)
@@ -28,8 +23,12 @@ $(document).ready(() => {
     for(let i =0; i < number_letters; i++){
         word_to_guess.push('&nbsp;&nbsp;')
     }
-
+    // initialize empty lines to output solution
     outputResult()
+    $('#hint').click(function(){
+        $("#show_hint").remove()
+        $('.hint').append(`<font size="+2"><strong>${hint}</strong></font>`)
+    })
     for(let i=0;i<26;i++){
         const b_id=$('.button')[i].id
         $(`#${b_id}`).click(function(){
