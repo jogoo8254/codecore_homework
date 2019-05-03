@@ -10,8 +10,6 @@ let index_of_toggled_image=0
 let word_to_guess=[]
 let alreadyPlayed = false;
 function resetGame(){
-		console.log("reset")
-		console.log(index_of_toggled_image)
 	alreadyPlayed=true;
 	// reset word to guess slot
 	word_to_guess=[]
@@ -24,7 +22,6 @@ function resetGame(){
 	}
 	// reset index of toggling image
 	index_of_toggled_image=0
-	console.log(index_of_toggled_image)
 	// reset background color for buttons
 	for(let i=0;i<26;i++){
         let button= $('.button')[i].id
@@ -65,12 +62,7 @@ function playGame(){
                 if(choose_random_word.includes(clicked_letter)){
                     word_to_guess = addLetterToCorrespondingSpot(choose_random_word,clicked_letter,word_to_guess)
                 }else{
-						console.log("------before toggle---------")
-						console.log(index_of_toggled_image)
-
                     index_of_toggled_image = toggleNextImage(index_of_toggled_image);
-					console.log("------toggle after---------")
-						console.log(index_of_toggled_image)
                 }
             });
         }
