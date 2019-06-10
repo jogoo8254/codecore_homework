@@ -1,9 +1,4 @@
- Author: Kevin Njunge
-
- Assignment: Box-It-Script
- 
- Due Date: March 15, 2019
- 
+ Title: Box-It-Script
  
  To execute:
  1. cd box_it_script/
