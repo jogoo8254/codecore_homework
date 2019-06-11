@@ -1,6 +1,5 @@
- Author: Kevin Njunge
+Title: Box-It-Script
 
- Assignment: Box-It-Script
  
  Due Date: March 15, 2019
  
