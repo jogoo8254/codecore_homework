@@ -1,10 +1,6 @@
- Author: Kevin Njunge
+Box-It-Script
+ 
 
- Assignment: Box-It-Script
- 
- Due Date: March 15, 2019
- 
- 
  To execute:
  1. cd box_it_script/
  2. run chmod +x index.js to make it executable with ./
