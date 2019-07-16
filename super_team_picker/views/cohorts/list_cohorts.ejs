@@ -1,0 +1,19 @@
+<%- include("../partials/header") %>
+<% for(let cohort of cohorts){ %>
+<form action="/cohorts/<%= cohort.id %>" >
+<div>
+<nav class="nav_cohort">
+    <a class="navbar-brand" href="#">
+    <% if(cohort.logo_url){ %>
+    <img src="<%= cohort.logo_url %>" height="50" width="50">
+     <% } %>    
+    </a>
+    <a href="">  <%= cohort.name %></a>
+</nav>
+</div>
+<p><%= cohort.members%></p>
+<input type="submit" value="Show cohort">
+</form>
+<% } %>
+
+<%- include("../partials/footer") %>

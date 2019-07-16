@@ -1,0 +1,23 @@
+<%- include("../partials/header") %>
+
+<form action="/cohorts/new" method="POST">
+  <div>
+    <h2>Logo Url</h2>
+    <input type="text" name="logo_url" placeholder="e.g. https://imgur.com/some.png">
+  </div>
+  <div>
+    <h2>Name</h2>
+    <input type="text" name="name" placeholder="e.g. Flying Funks">
+  </div>
+  <div>
+    <h2>Members</h2>
+    <textarea
+      name="members"
+      cols="50"
+      rows="4"
+      placeholder="e.g. Mr. Fantastic, Joe Montana, Ms. Some Body "
+    ></textarea>
+  </div>
+  <input type="submit" value="Submit!">
+</form>
+<%- include("../partials/footer") %>
